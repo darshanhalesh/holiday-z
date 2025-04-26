@@ -22,3 +22,7 @@ module.exports = {
   cloudinary,
   storage,
 };
+
+// p1l8L6U1jvKmsZ4G
+// darshanhalesh
+// mongodb+srv://darshanhalesh:p1l8L6U1jvKmsZ4G@cluster0.aqs56.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
