@@ -26,7 +26,7 @@ const passport=require("passport")
 const Localstrategy=require("passport-local")
 const user=require("./models/user.js")
 
-const dburl=process.env.ATLAS_URl
+const dburl=process.env.ATLAS_URL
 
 // const mongo_url = "mongodb://12.0.0.1:27017/wanderlust";
 main().then(() => {
