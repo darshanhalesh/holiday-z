@@ -21,12 +21,13 @@ const flash = require("connect-flash");
 
 const Listingsrouter = require("./routes/listing.js");
 const reviewsrouter = require("./routes/review.js");
-const userrouter=require("./routes/user.js")
-const passport=require("passport")
-const Localstrategy=require("passport-local")
-const user=require("./models/user.js")
+const userrouter = require("./routes/user.js");
+const wishlistrouter = require("./routes/wishlist.js");
+const passport = require("passport");
+const Localstrategy = require("passport-local");
+const User = require("./models/user.js");
 
-const dburl=process.env.ATLAS_URL
+const dburl = process.env.ATLAS_URL;
 
 // const mongo_url = "mongodb://12.0.0.1:27017/wanderlust";
 main().then(() => {
@@ -49,17 +50,17 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 
 
-const store= MongoStore.create({
-    mongoUrl:dburl,
-    crypto:{
+const store = MongoStore.create({
+    mongoUrl: dburl,
+    crypto: {
         secret: process.env.SECRET
-        
     },
-    touchAfter:24*3600
-})
-store.on("error",()=>{
-    console.log("error in mongo session store")
-})
+    touchAfter: 24 * 3600
+});
+
+store.on("error", () => {
+    console.log("error in mongo session store");
+});
 
 const sessionOptions = {
     store,
@@ -92,12 +93,12 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session())
-passport.use(new Localstrategy(user.authenticate()));
+passport.use(new Localstrategy(User.authenticate()));
 
 
 
-passport.serializeUser(user.serializeUser()); 
-passport.deserializeUser(user.deserializeUser());
+passport.serializeUser(User.serializeUser()); 
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
@@ -121,7 +122,8 @@ app.use((req, res, next) => {
 
 app.use("/listings", Listingsrouter);
 app.use("/listings/:id/reviews", reviewsrouter);
-app.use("/",userrouter)
+app.use("/", userrouter);
+app.use("/wishlist", wishlistrouter);
 
 app.all("*", (req, res, next) => {
     next(new ExpressError(404, "page not found"));
@@ -132,6 +134,6 @@ app.use((err, req, res, next) => {
     res.status(statusCode).send(message);
 });
 
-app.listen(3000, () => {
-    console.log("server working");
+app.listen(3003, () => {
+    console.log("server working on port 3003");
 });
