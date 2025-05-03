@@ -60,19 +60,36 @@ module.exports.showListing=async (req, res) => {
 
 
 module.exports.createListing = async (req, res) => {
-    let newlisting = new listing(req.body.listing);
-    if (req.files && req.files.length > 0) {
-        const images = [];
-        for (let file of req.files) {
-            const result = await cloudinary.uploader.upload(file.path);
-            images.push({ url: result.secure_url, filename: result.public_id });
+    try {
+        let newlisting = new listing(req.body.listing);
+        
+        if (req.files && req.files.length > 0) {
+            const images = [];
+            for (let file of req.files) {
+                try {
+                    const result = await cloudinary.uploader.upload(file.path, {
+                        folder: 'wanderlust_DEV',
+                        transformation: [{ width: 1000, height: 1000, crop: 'limit' }]
+                    });
+                    images.push({ url: result.secure_url, filename: result.public_id });
+                } catch (uploadError) {
+                    console.error('Error uploading image:', uploadError);
+                    req.flash('error', 'Error uploading one or more images');
+                    return res.redirect('/listings/new');
+                }
+            }
+            newlisting.images = images;
         }
-        newlisting.images = images;
+        
+        newlisting.owner = req.user._id;
+        await newlisting.save();
+        req.flash("success", "Successfully created new listing");
+        res.redirect("/listings");
+    } catch (err) {
+        console.error('Error creating listing:', err);
+        req.flash('error', 'Error creating listing. Please try again.');
+        res.redirect('/listings/new');
     }
-    newlisting.owner = req.user._id;
-    await newlisting.save();
-    req.flash("success", "Successfully created");
-    res.redirect("/listings");
 };
 
 

@@ -13,7 +13,31 @@
         </div>
     </div>
     <div class="card col-6 offset-3 show-card listing-card" >
-        <img src="<%=Listing.image.url  %>" class="card-img-top show-img" alt="...">
+        <div id="listingCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <% if(Listing.images && Listing.images.length > 0) { %>
+                    <% Listing.images.forEach((image, index) => { %>
+                        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                            <img src="<%= image.url %>" class="d-block w-100 show-img" alt="Listing image">
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="carousel-item active">
+                        <img src="/images/default-listing.jpg" class="d-block w-100 show-img" alt="Default listing image">
+                    </div>
+                <% } %>
+            </div>
+            <% if(Listing.images && Listing.images.length > 1) { %>
+                <button class="carousel-control-prev" type="button" data-bs-target="#listingCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#listingCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            <% } %>
+        </div>
         <div class="card-body">
           <p class="card-text">
           owned by<%=Listing.owner.username  %>

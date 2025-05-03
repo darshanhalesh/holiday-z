@@ -11,11 +11,13 @@
               <label for="title" class="form-label">Title</label>
               <input name="listing[title]" placeholder="Add a catchy title" type="text" class="form-control" required>
               <div class="valid-feedback">Title seems good</div>
+              <div class="invalid-feedback">Please provide a title</div>
             </div>
 
             <div class="mb-3">
               <label for="description" class="form-label">Description</label>
               <textarea name="listing[description]" placeholder="Enter description" class="form-control" required></textarea>
+              <div class="invalid-feedback">Please provide a description</div>
             </div>
 
             <div class="mb-3">
@@ -33,12 +35,14 @@
                 <option value="Arctic">Arctic</option>
                 <option value="Boats">Boats</option>
               </select>
+              <div class="invalid-feedback">Please select a category</div>
             </div>
 
             <div class="mb-3">
               <label for="images" class="form-label">Images (Max 4)</label>
               <input name="listing[images]" type="file" class="form-control" multiple accept="image/*" required>
-              <small class="text-muted">You can select up to 4 images</small>
+              <small class="text-muted">You can select up to 4 images (max 2MB each)</small>
+              <div class="invalid-feedback">Please upload at least one image</div>
             </div>
 
             <div class="row">
@@ -46,25 +50,45 @@
                 <label for="price" class="form-label">Price</label>
                 <div class="input-group">
                   <span class="input-group-text">$</span>
-                  <input name="listing[price]" placeholder="1200" type="number" class="form-control" required />
+                  <input name="listing[price]" placeholder="1200" type="number" class="form-control" required min="0" />
                 </div>
+                <div class="invalid-feedback">Please provide a valid price</div>
               </div>
   
               <div class="mb-3 col-md-8">
                 <label for="country" class="form-label">Country</label>
                 <input name="listing[country]" placeholder="India" type="text" class="form-control" required>
+                <div class="invalid-feedback">Please provide a country</div>
               </div>
             </div>
 
             <div class="mb-3">
               <label for="location" class="form-label">Location</label>
               <input name="listing[location]" placeholder="Bengaluru, Karnataka" type="text" class="form-control" required>
+              <div class="invalid-feedback">Please provide a location</div>
             </div>
     
             <div class="d-grid">
               <button class="btn btn-primary">Create Listing</button>
             </div>
           </form>
+
+          <script>
+            // Form validation
+            (function () {
+              'use strict'
+              const forms = document.querySelectorAll('.needs-validation')
+              Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                  if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                  }
+                  form.classList.add('was-validated')
+                }, false)
+              })
+            })()
+          </script>
         </div>
       </div>
     </div>
