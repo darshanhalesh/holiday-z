@@ -9,7 +9,7 @@ Holiday-Z is a **travel listing platform** designed to help users discover incre
 - 🔐 **User Authentication** – Secure login via Passport.js for personalized interactions.  
 - 💾 **MongoDB Atlas Database** – Stores listings and user data efficiently.  
 - 📜 **Session Management** – Utilizes `connect-mongo` for session handling.  
-- 🎨 **Dynamic UI** – Powered by EJS for interactive pages.  
+- 🎨 **Dynamic UI** – Powered by EJS for interactive pages  
 
 ## 🏗 Tech Stack  
 - **Backend:** Node.js, Express.js  
