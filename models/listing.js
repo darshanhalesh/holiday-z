@@ -30,7 +30,20 @@ const listingSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    wishlist: [{
+    geometry: {
+        type: {
+            type: String,
+            enum: ['Point']
+        },
+        coordinates: {
+            type: [Number]
+        }
+    },
+    wishlistCount: {
+        type: Number,
+        default: 0
+    },
+    wishlistedBy: [{
         type: Schema.Types.ObjectId,
         ref: "User"
     }]

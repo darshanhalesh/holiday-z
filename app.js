@@ -26,6 +26,7 @@ const wishlistrouter = require("./routes/wishlist.js");
 const passport = require("passport");
 const Localstrategy = require("passport-local");
 const User = require("./models/user.js");
+const user = require("./models/user.js");
 
 const dburl = process.env.ATLAS_URL;
 
@@ -102,10 +103,20 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
-    res.locals.error=req.flash("error")
-   res.locals.curruser=req.user;
-   
-    next();
+    res.locals.error = req.flash("error");
+    res.locals.curruser = req.user;
+    res.locals.currentPath = req.path;
+    if (req.user) {
+        user.findById(req.user._id).populate('wishlist').then(user => {
+            res.locals.curruser = user;
+            next();
+        }).catch(err => {
+            console.error("Error populating wishlist:", err);
+            next();
+        });
+    } else {
+        next();
+    }
 });
 
 

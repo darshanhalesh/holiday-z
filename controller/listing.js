@@ -45,15 +45,28 @@ module.exports.rendernewform=(req, res) => {
     res.render("listings/new.ejs");
 }
 
-module.exports.showListing=async (req, res) => {
-    let { id } = req.params;
-    const Listing = await listing.findById(id).populate({path:"reviews",populate:{path:"author"},}).populate("owner");
-    if(!Listing){
-        req.flash("error" ,"listing you requested for does not exist")
-        res.redirect("/listings")
+module.exports.showListing = async (req, res) => {
+    try {
+        let { id } = req.params;
+        const Listing = await listing.findById(id)
+            .populate({path:"reviews", populate:{path:"author"}})
+            .populate("owner");
+            
+        if(!Listing) {
+            req.flash("error", "Listing you requested for does not exist");
+            return res.redirect("/listings");
+        }
+        
+        res.render("listings/show.ejs", { 
+            Listing,
+            curruser: req.user
+        });
+    } catch (err) {
+        console.error("Error showing listing:", err);
+        req.flash("error", "Something went wrong!");
+        res.redirect("/listings");
     }
-    res.render("listings/show.ejs", { Listing });
-}
+};
 
 
 
