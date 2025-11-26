@@ -1,14 +1,24 @@
-// Load environment variables - always load in development, required in production
-if (process.env.NODE_ENV !== "production") { 
-  require('dotenv').config();
-}
+// Load environment variables from .env file (if it exists)
+// In production (Render), environment variables are set directly in the dashboard
+// This will gracefully handle missing .env files
+require('dotenv').config();
 
 // Verify required environment variables
-if (!process.env.ATLAS_DB_TOKEN) {
-  console.error("ERROR: ATLAS_DB_TOKEN not found. Please set it in .env or environment variables");
-  if (process.env.NODE_ENV === "production") {
-    console.error("In production: Add ATLAS_DB_TOKEN to your Render environment variables");
-  }
+const requiredEnvVars = ['ATLAS_DB_TOKEN', 'CLOUD_NAME', 'CLOUD_API_KEY', 'CLOUD_API_SECRET'];
+const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+
+if (missingVars.length > 0) {
+  console.error("❌ ERROR: Missing required environment variables:", missingVars.join(', '));
+  console.error("\n📋 Required environment variables:");
+  console.error("   - ATLAS_DB_TOKEN (MongoDB connection string)");
+  console.error("   - CLOUD_NAME (Cloudinary cloud name)");
+  console.error("   - CLOUD_API_KEY (Cloudinary API key)");
+  console.error("   - CLOUD_API_SECRET (Cloudinary API secret)");
+  console.error("\n🔧 To fix this:");
+  console.error("   Local: Create a .env file with these variables");
+  console.error("   Render: Add these variables in Environment settings");
+  console.error("\n📖 See .env.example for reference\n");
+  process.exit(1); // Exit immediately if critical variables are missing
 }
 
 const port = 8080;
@@ -58,11 +68,8 @@ app.use(cookieparser());
 
 // MongoDB connection URL - use ATLAS_DB_TOKEN from environment
 const dbUrl = process.env.ATLAS_DB_TOKEN;
-if (!dbUrl) {
-  throw new Error("ATLAS_DB_TOKEN environment variable is required but not set");
-}
 
-console.log("Connecting to MongoDB with URL:", dbUrl.substring(0, 50) + "...");
+console.log("🔗 Connecting to MongoDB...");
 
 // Create MongoDB connection
 const mongoConnection = mongoose.connect(dbUrl);

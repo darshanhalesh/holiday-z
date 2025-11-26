@@ -1,0 +1,23 @@
+name: Auto Comment on Issue
+on:
+  issues:
+    types: [opened]
+permissions:
+  issues: write
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Add Comment to Issue
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Thank you for creating this issue! 🎉 We\'ll look into it as soon as possible. In the meantime, please make sure to provide all the necessary details and context. If you have any questions or additional information, feel free to add them here. Your contributions are highly appreciated! 😊\n\nYou can also check our [CONTRIBUTING.md](https://github.com/darshanhalesh/holiday-z/blob/main/CONTRIBUTING.md) for guidelines on contributing to this project.'
+            })
