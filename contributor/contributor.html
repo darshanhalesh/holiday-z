@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>holidayz-2024 Contributors</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        /* Existing CSS from contributor.css */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .homeBtn {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .contributor-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .contributor-hero {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+        .contributor-hero video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .contributor-hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            text-align: center;
+        }
+        .contributor-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .contributor-btn-primary {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .contributor-btn-secondary {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        .contributor-stats, .contributor-contributors, .contributor-cta {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .contributor-stats-grid, .contributor-contributors-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .contributor-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+        .contributor-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #007BFF;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .contributor-notification {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .contributor-hidden {
+            display: none;
+        }
+        /* Additional UI enhancements */
+        .contributor-hero-content h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        .contributor-hero-content p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .contributor-cta form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .contributor-cta input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+  <a href="../views/index.ejs" class="homeBtn">Home</a>
+
+  <div class="contributor-container">
+    <!-- Hero Section -->
+    <section class="contributor-hero">
+        <video autoplay muted loop>
+            <source src="../public/assets/holidayz.mp4" type="video/mp4">
+        </video>
+        <div class="contributor-hero-content">
+            <h1>Welcome to holidayz-2024</h1>
+            <p>Empowering writers, one commit at a time</p>
+            <button class="contributor-btn contributor-btn-primary" onclick="scrollToContribute()">Become a Contributor</button>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="contributor-stats">
+        <h2>Project Statistics</h2>
+        <div class="contributor-stats-grid" id="statsGrid">
+            <!-- Stats will be dynamically inserted here -->
+        </div>
+    </section>
+
+    <!-- Contributors Grid -->
+    <section class="contributor-contributors">
+        <h2>Meet Our Contributors</h2>
+        <div class="contributor-contributors-grid" id="contributorsGrid">
+            <!-- Contributors will be dynamically inserted here -->
+        </div>
+        <div id="loading" class="contributor-loading">
+            <div class="contributor-spinner"></div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="contribute" class="contributor-cta">
+        <h2>Ready to Make an Impact?</h2>
+        <p>Join our community and help shape the future with us at holidayz-2024.</p>
+        <form id="subscribeForm">
+            <input type="email" id="emailInput" placeholder="Enter your email" required>
+            <button type="submit" class="contributor-btn contributor-btn-secondary">Get Started</button>
+        </form>
+        <div id="notification" class="contributor-notification contributor-hidden"></div>
+    </section>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="contributor.js"></script>
+</body>
+</html>
