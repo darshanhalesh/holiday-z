@@ -61,14 +61,26 @@ const dbUrl = process.env.ATLAS_DB_TOKEN;
 if (!dbUrl) {
   throw new Error("ATLAS_DB_TOKEN environment variable is required but not set");
 }
-console.log("Connecting to MongoDB...");
+
+console.log("Connecting to MongoDB with URL:", dbUrl.substring(0, 50) + "...");
+
+// Create MongoDB connection
+const mongoConnection = mongoose.connect(dbUrl);
 
 async function main() {
-  await mongoose.connect(dbUrl);
-  console.log("database connected successfully");
+  try {
+    await mongoConnection;
+    console.log("✓ Database connected successfully");
+  } catch (err) {
+    console.error("✗ Database connection failed:", err.message);
+    throw err;
+  }
 }
 
-main().catch(err => console.log(err));
+main().catch(err => {
+  console.error("Fatal error:", err);
+  process.exit(1);
+});
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -76,17 +88,23 @@ app.use(express.static(path.join(__dirname, "/public")));
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
 app.engine('ejs', ejsMate);
-// app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use(express.json());
 
-
-const store = MongoStore.create({
-  mongoUrl: dbUrl,
-  crypto: {
-    secret: process.env.SECRET || "thisshouldbeabettersecret"
-  },
-  touchAfter: 24 * 3600,
-});
+// Initialize MongoStore with error handling
+let store;
+try {
+  store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto: {
+      secret: process.env.SECRET || "thisshouldbeabettersecret"
+    },
+    touchAfter: 24 * 3600,
+  });
+  console.log("✓ MongoStore initialized");
+} catch (err) {
+  console.error("✗ MongoStore initialization failed:", err.message);
+  throw err;
+}
 
 store.on("error", (err) => {
   console.log("error in mongo session store", err);
