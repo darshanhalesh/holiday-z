@@ -1,5 +1,14 @@
-if (process.env.NODE_ENV != "production") { 
+// Load environment variables - always load in development, required in production
+if (process.env.NODE_ENV !== "production") { 
   require('dotenv').config();
+}
+
+// Verify required environment variables
+if (!process.env.ATLAS_DB_TOKEN) {
+  console.error("ERROR: ATLAS_DB_TOKEN not found. Please set it in .env or environment variables");
+  if (process.env.NODE_ENV === "production") {
+    console.error("In production: Add ATLAS_DB_TOKEN to your Render environment variables");
+  }
 }
 
 const port = 8080;
@@ -47,14 +56,16 @@ app.use(cors({
 
 app.use(cookieparser());
 
-const dbUrl = process.env.ATLAS_DB_TOKEN || "mongodb://127.0.0.1:27017/wanderlust";
-if (!process.env.ATLAS_DB_TOKEN) {
-  console.log("Warning: ATLAS_DB_TOKEN not found in .env. Using local database:", dbUrl);
+// MongoDB connection URL - use ATLAS_DB_TOKEN from environment
+const dbUrl = process.env.ATLAS_DB_TOKEN;
+if (!dbUrl) {
+  throw new Error("ATLAS_DB_TOKEN environment variable is required but not set");
 }
+console.log("Connecting to MongoDB...");
 
 async function main() {
   await mongoose.connect(dbUrl);
-  console.log("database connected");
+  console.log("database connected successfully");
 }
 
 main().catch(err => console.log(err));
