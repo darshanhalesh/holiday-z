@@ -28,7 +28,7 @@ Live Link: https://holidayz-2024-tkqf.onrender.com/listing
 - [🛠️ How to Set Up the Project Locally](#️-how-to-set-up-the-project-locally)
 - [📬 Contact](#-contact)
 - [👀 Our Valuable Contributors](#-our-valuable-contributors-)
-- [❤️ Project owner - Soujanya C](#-made-with-love-by-soujanya-c)
+  
 
 
  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
@@ -48,7 +48,7 @@ We welcome contributions to help improve **holidayz**! 🚀 Here’s how you can
      ```
    - Navigate to the project directory:
      ```bash
-     cd Wanderlust-2024
+     cd Holidayz 
      ```
 
 3. **Create a New Branch for Your Changes** 🌿
@@ -173,32 +173,6 @@ Every contribution, big or small, is valued and appreciated. Together, we can cr
 
  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
-## 📬 Contact
 
-For questions or feedback, feel free to reach out via GitHub issues or contact the project maintainers. ✉️
-
- <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
- 
-
-## ❤️ Made with Love by [Soujanya C](https://github.com/Soujanya2004)
-
-<div align="center">
-  <a href="https://github.com/Soujanya2004">
-      <img src="https://avatars.githubusercontent.com/Soujanya2004" alt="Your Profile" style="width: 100px; height: 100px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
-  </a>
-  <h3 style="margin: 10px 0;">Thank You for Your Support! 💖</h3>
-  <p style="font-size: 18px; color: #555;">Your contributions help us grow and improve! Happy Coding ✨🚀</p>
-</div>
-
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900" alt="Contributors Animation"/>
-</div>
- 
- 
-<div align="center">
-    <a href="#top">
-        <img src="https://img.shields.io/badge/Back%20to%20Top-000000?style=for-the-badge&logo=github&logoColor=white" alt="Back to Top">
-    </a>
-</div>
 
 
