@@ -89,7 +89,7 @@ We welcome contributions to help improve **holidayz**! 🚀 Here’s how you can
 2. **Navigate to the Project Directory** 📂
    - Change to the directory where the project is located:
      ```bash
-     cd Wanderlust-2024
+     cd holidayz 
      ```
 
 3. **Set Up Your Mapbox Account** 🌐
