@@ -21,6 +21,16 @@ if (missingVars.length > 0) {
   process.exit(1); // Exit immediately if critical variables are missing
 }
 
+// Check for optional email configuration (needed for forgot password feature)
+const emailVars = ['MAIL_HOST', 'MAIL_USER', 'MAIL_PASS'];
+const missingEmailVars = emailVars.filter(varName => !process.env[varName]);
+
+if (missingEmailVars.length > 0) {
+  console.warn("⚠️  WARNING: Email configuration incomplete. Forgot password feature will not work.");
+  console.warn("   Missing:", missingEmailVars.join(', '));
+  console.warn("   See FORGOT_PASSWORD_FIX.md for setup instructions\n");
+}
+
 const port = 8080;
 const express = require("express");
 const app = express();
@@ -154,10 +164,27 @@ app.use((req, res, next) => {
   }
 
   // List of routes that are publicly accessible
-  const publicRoutes = ["/login", "/signup", "/forgot-password", "/", "/about", "/contact", "/terms", "/privacy", "/listing", "/feedback", "/admin" ,"/admin/dashboard"];
+  const publicRoutes = [
+    "/login", 
+    "/signup", 
+    "/forgot-password", 
+    "/resetlink-password",  // Allow password reset email submission
+    "/", 
+    "/about", 
+    "/contact", 
+    "/terms", 
+    "/privacy", 
+    "/listing", 
+    "/feedback", 
+    "/admin", 
+    "/admin/dashboard"
+  ];
+
+  // Check if the current path is a public route or a reset password route
+  const isPublicRoute = publicRoutes.includes(req.path) || req.path.startsWith("/resetPassword/");
 
   // Redirect non-logged-in users trying to access private routes
-  if (!req.isAuthenticated() && !publicRoutes.includes(req.path)) {
+  if (!req.isAuthenticated() && !isPublicRoute) {
     req.flash("error", "Please sign in to continue.");
     return res.redirect("/listing");
   }

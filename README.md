@@ -18,10 +18,7 @@ Live Link: https://holidayz-2024-tkqf.onrender.com/listing
  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 
-## 📈 GitHub Repository Stats
-| 🌟 **Stars** | 🍴 **Forks** | 🐛 **Issues** | 🔔 **Open PRs** | 🔕 **Closed PRs** | 🛠️ **Languages** | ✅ **Contributors** |
-|--------------|--------------|---------------|-----------------|------------------|------------------|------------------|
-| ![GitHub stars](https://img.shields.io/github/stars/Soujanya2004/wanderlust-2024) | ![forks](https://img.shields.io/github/forks/Soujanya2004/wanderlust-2024) | ![issues](https://img.shields.io/github/issues/Soujanya2004/wanderlust-2024?color=32CD32) | ![pull requests](https://img.shields.io/github/issues-pr/Soujanya2004/wanderlust-2024?color=FFFF8F) | ![Closed PRs](https://img.shields.io/github/issues-pr-closed/Soujanya2004/wanderlust-2024?color=20B2AA) | ![Languages](https://img.shields.io/github/languages/count/Soujanya2004/wanderlust-2024?color=20B2AA) | ![Contributors](https://img.shields.io/github/contributors/Soujanya2004/wanderlust-2024?color=00FA9A) |
+
 
 ## 📚 Table of Contents
 - [🤝 How to Contribute](#-how-to-contribute)
@@ -38,17 +35,17 @@ Live Link: https://holidayz-2024-tkqf.onrender.com/listing
 We welcome contributions to help improve **holidayz**! 🚀 Here’s how you can get involved:
 
 1. **Fork the Repository** 🍴
-   - Navigate to the [holidayz GitHub page](https://github.com/Soujanya2004/Wanderlust-2024). 🌐
+   - Navigate to the [holidayz GitHub page](https://github.com/darshanhalesh/holidayz). 🌐
    - Click on the Fork button in the top-right corner of the page to create a copy of the repository in your GitHub account. ➕
 
 2. **Clone Your Forked Repository** 🔄
    - After forking, clone the repository to your local machine:
      ```bash
-     git clone https://github.com/your-username/Wanderlust-2024.git
+     git clone https://github.com/darshanhalesh/holidayz.git
      ```
    - Navigate to the project directory:
      ```bash
-     cd Wanderlust-2024
+     cd holidayz
      ```
 
 3. **Create a New Branch for Your Changes** 🌿

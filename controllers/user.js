@@ -72,19 +72,18 @@ module.exports.passwordResetLink = async (req, res, next) => {
   
     const resetURL = `${req.protocol}://${req.get('host')}/resetPassword/${resetToken}`;
   
-    const message = `password Reset Link: ${resetURL}`;
+    const message = `Password Reset Link: ${resetURL}`;
   
     try {
-      sendMail({
+      await sendMail({
         email: user.email,
-        subject: "password Resend Request",
+        subject: "Password Reset Request",
         text: message,
       }, next);
   
-      res.status(200).json({
-        status: 'success',
-        message: "Password reset link send to the user's email"
-      });
+      console.log(`✓ Password reset email sent to ${user.email}`);
+      req.flash('success', `Password reset link has been sent to ${user.email}. Please check your inbox (and spam folder).`);
+      return res.redirect('/login');
     }
     catch (error) {
       console.error("Error sending email:", error); 
@@ -92,10 +91,8 @@ module.exports.passwordResetLink = async (req, res, next) => {
       user.passwordResetTokenExpires = undefined;
       await user.save({ validateBeforeSave: false });
   
-      return res.status(500).json({
-        status: 'fail',
-        message: "There was an error sending the email, please try again."
-      });
+      req.flash('error', 'There was an error sending the email. Please check your email configuration and try again.');
+      return res.redirect('/forgot-password');
     }
     
   };

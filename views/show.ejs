@@ -394,7 +394,12 @@
                         <!-- MAP -->
                         <div class="col-12 offset-1 mx-auto mb-5">
                             <h3 class="text-center" style="padding: 10px;">Where you will be</h3>
-                            <div id="map" style="width: 100%; height: 400px;"></div>
+                            <div id="map" class="map-container large" 
+                                 data-map-id="map" 
+                                 data-coordinates="<%= JSON.stringify(list.geometry.coordinates) %>"
+                                 data-location="<%= list.location %>"
+                                 data-country="<%= list.country %>">
+                            </div>
                         </div>
 
 
@@ -598,6 +603,5 @@
             </div>
         </div>
 
-        <script src="/js/map.js"></script>
-        <!--Call the script file at the end because the map will be displayed at the end-->
+        <!-- Leaflet map is initialized via boilerplate layout -->
     </body>
