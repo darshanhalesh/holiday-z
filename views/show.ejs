@@ -394,12 +394,19 @@
                         <!-- MAP -->
                         <div class="col-12 offset-1 mx-auto mb-5">
                             <h3 class="text-center" style="padding: 10px;">Where you will be</h3>
-                            <div id="map" class="map-container large" 
-                                 data-map-id="map" 
-                                 data-coordinates="<%= JSON.stringify(list.geometry.coordinates) %>"
-                                 data-location="<%= list.location %>"
-                                 data-country="<%= list.country %>">
-                            </div>
+                            <% if (list.geometry && list.geometry.coordinates && list.geometry.coordinates.length === 2) { %>
+                                <div id="map" class="map-container large" 
+                                     data-map-id="map" 
+                                     data-coordinates="<%= JSON.stringify(list.geometry.coordinates) %>"
+                                     data-location="<%= list.location %>"
+                                     data-country="<%= list.country %>">
+                                </div>
+                            <% } else { %>
+                                <div class="alert alert-info text-center">
+                                    <p>📍 Location information will be available after booking confirmation</p>
+                                    <small>Location: <%= list.location %>, <%= list.country %></small>
+                                </div>
+                            <% } %>
                         </div>
 
 
