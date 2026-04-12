@@ -125,7 +125,23 @@ module.exports.search = async (req, res) => {
         }
         
         // Geocoding to get coordinates from location
-        const geoData = await geocodingClient.search({ q: location });
+        let geometry = {
+            type: 'Point',
+            coordinates: [0, 0] // Default coordinates
+        };
+
+        try {
+            const geoData = await geocodingClient.search({ q: location });
+            if (geoData && geoData.length > 0) {
+                geometry.coordinates = [geoData[0].lon, geoData[0].lat];
+                console.log(`Geocoded location "${location}" to [${geoData[0].lon}, ${geoData[0].lat}]`);
+            } else {
+                console.warn(`No geocoding results found for location: "${location}". Using default coordinates.`);
+            }
+        } catch (geoErr) {
+            console.error(`Geocoding error for location "${location}":`, geoErr.message);
+            // Continue with default coordinates if geocoding fails
+        }
 
         // Create the new listing with tags
         const newListing = new listing({
@@ -134,10 +150,7 @@ module.exports.search = async (req, res) => {
             price,
             country,
             location,
-            geometry: {
-                type: 'Point',
-                coordinates: [geoData[0].lon, geoData[0].lat]
-            },
+            geometry: geometry,
             owner: req.user._id,
             image: [],  // Initialize as an empty array
             tags: tagArray // Save the tags (either empty array or the parsed tags)
